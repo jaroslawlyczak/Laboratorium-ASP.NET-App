@@ -1,0 +1,40 @@
+﻿@model List<Reservation>
+@{
+}
+
+<h2>Lista Rezerwacji</h2>
+    <table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model[0].Id)</th>
+            <th>@Html.DisplayNameFor(model => model[0].Priority)</th>
+            <th>@Html.DisplayNameFor(model => model[0].Date)</th>
+            <th>@Html.DisplayNameFor(model => model[0].City)</th>
+            <th>@Html.DisplayNameFor(model => model[0].Address)</th>
+            <th>@Html.DisplayNameFor(model => model[0].Room)</th>
+            <th>@Html.DisplayNameFor(model => model[0].Owner)</th>
+            <th>@Html.DisplayNameFor(model => model[0].Price)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Priority.GetDisplayName()</td>
+                <td>@item.Date</td>
+                <td>@item.City</td>
+                <td>@item.Address</td>
+                <td>@item.Room</td>
+                <td>@item.Owner</td>
+                <td>@item.Price</td>
+                <td>
+                    <a class="btn btn-outline-primary" asp-controller="Reservation" asp-action="Edit" asp-route-id="@item.Id">Edycja</a>
+                    <a class="btn btn-outline-primary" asp-controller="Reservation" asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
+                    <a class="btn btn-outline-danger" asp-controller="Reservation" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
