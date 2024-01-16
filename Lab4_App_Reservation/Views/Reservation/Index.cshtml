@@ -1,40 +1,70 @@
-﻿@model List<Reservation>
-@{
-}
+﻿@using Lab4_App_Reservation.Models;
+@using Lab4_App_Reservation.Models.ReservationModels;
 
-<h2>Lista Rezerwacji</h2>
-    <table class="table">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(model => model[0].Id)</th>
-            <th>@Html.DisplayNameFor(model => model[0].Priority)</th>
-            <th>@Html.DisplayNameFor(model => model[0].Date)</th>
-            <th>@Html.DisplayNameFor(model => model[0].City)</th>
-            <th>@Html.DisplayNameFor(model => model[0].Address)</th>
-            <th>@Html.DisplayNameFor(model => model[0].Room)</th>
-            <th>@Html.DisplayNameFor(model => model[0].Owner)</th>
-            <th>@Html.DisplayNameFor(model => model[0].Price)</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+@model List<Reservation>
+
+<h1 class="text-2xl font-bold mb-4">Lista rezerwacji</h1>
+<a class="bg-blue-500 text-white px-4 py-2 rounded inline-block mb-4 hover:bg-blue-700" asp-controller="Reservation" asp-action="Create">Utwórz rezerwacje</a>
+<a class="bg-blue-500 text-white px-4 py-2 rounded inline-block mb-4 hover:bg-blue-700" asp-controller="Reservation" asp-action="PagedIndex">Stronicowana witryna</a>
+<a class="bg-blue-500 text-white px-4 py-2 rounded inline-block mb-4 hover:bg-blue-700" asp-controller="Reservation" asp-action="SearchIndexApi">Wyszukiwarka Właściciela API</a>
+
+
+@if (Model.Count > 0)
+{
+    <table class="min-w-full bg-white border border-gray-300">
+        <thead class="bg-gray-100">
             <tr>
-                <td>@item.Id</td>
-                <td>@item.Priority.GetDisplayName()</td>
-                <td>@item.Date</td>
-                <td>@item.City</td>
-                <td>@item.Address</td>
-                <td>@item.Room</td>
-                <td>@item.Owner</td>
-                <td>@item.Price</td>
-                <td>
-                    <a class="btn btn-outline-primary" asp-controller="Reservation" asp-action="Edit" asp-route-id="@item.Id">Edycja</a>
-                    <a class="btn btn-outline-primary" asp-controller="Reservation" asp-action="Details" asp-route-id="@item.Id">Szczegóły</a>
-                    <a class="btn btn-outline-danger" asp-controller="Reservation" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
-                </td>
+                <th class="py-2 px-4 border-b">
+                    <a href="@Url.Action("Index", new { sortOrder = ViewBag.CurrentSort == "ContactId_asc" ? "ContactId_desc" : "ContactId_asc" })" class="underline text-blue-500 hover:text-blue-700">
+                        <span>@Html.DisplayNameFor(i => Model[0].ContactId)</span>
+                        <span class="sort-arrow @(ViewBag.CurrentSort == "ContactId_asc" ? "up" : (ViewBag.CurrentSort == "ContactId_desc" ? "down" : ""))"></span>
+                    </a>
+                </th>
+                <th class="py-2 px-4 border-b">
+                    <a href="@Url.Action("Index", new { sortOrder = ViewBag.CurrentSort == "Miasto_asc" ? "Miasto_desc" : "Miasto_asc" })" class="underline text-blue-500 hover:text-blue-700">
+                        
+                        <span>@Html.DisplayNameFor(i => Model[0].Miasto)</span>
+                        <span class="sort-arrow @(ViewBag.CurrentSort == "Miasto_asc" ? "up" : (ViewBag.CurrentSort == "Miasto_desc" ? "down" : ""))"></span>
+                    </a>
+                </th>
+                <th class="py-2 px-4 border-b">
+                    <a href="@Url.Action("Index", new { sortOrder = ViewBag.CurrentSort == "Data_asc" ? "Data_desc" : "Data_asc" })" class="underline text-blue-500 hover:text-blue-700">
+                       
+                        <span>@Html.DisplayNameFor(i => Model[0].Data)</span>
+                        <span class="sort-arrow @(ViewBag.CurrentSort == "Data_asc" ? "up" : (ViewBag.CurrentSort == "Data_desc" ? "down" : ""))"></span>
+                    </a>
+                </th>
+                <th class="py-2 px-4 border-b">
+                    Akcje
+                </th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
 
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="py-2 px-4 border-b">
+                        @item.ContactName
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                        @item.Miasto
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                        @item.Data.ToShortDateString()
+                    </td>
+                    <td class="py-2 px-4 border-b">
+                        <a class="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-700" asp-controller="Reservation" asp-action="Update" asp-route-id="@item.Id">Edytuj</a>
+                        <a class="bg-green-500 text-white px-4 py-2 rounded mr-2 hover:bg-green-700" asp-controller="Reservation" asp-action="Details" asp-route-id="@item.Id">Szczególy</a>
+                        <a class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700" asp-controller="Reservation" asp-action="Delete" asp-route-id="@item.Id">Usuń</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="mt-4">Nie znaleziono rezerwacji.</p>
+}

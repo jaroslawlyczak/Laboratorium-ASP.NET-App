@@ -1,64 +1,36 @@
-﻿@model Reservation
-@{
-    ViewData["Title"] = "Details";
-}
+﻿@using Lab4_App_Reservation.Models.ReservationModels;
+@model Reservation
 
-<h2>Details</h2>
-
-<div>
-    <h4>Reservation Details</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Priority)
-        </dt>
-         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Priority)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.City)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Room)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Room)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Owner)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Owner)
-        </dd>
-
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
+<div class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md">
+    <h1 class="text-3xl font-bold mb-4">
+        Szczegóły
+    </h1>
+    <div class="mb-2">
+        <h3 class="text-lg font-semibold">Właściciel: @Model.ContactName</h3>
+    </div>
+    <div class="mb-2">
+        <h3 class="text-lg font-semibold">Data: @Model.Data.ToShortDateString()</h3>
+    </div>
+    <div class="mb-2">
+        <h3 class="text-lg font-semibold">Miasto: @Model.Miasto</h3>
+    </div>
+    <div class="mb-2">
+        <h3 class="text-lg font-semibold">Adres: @Model.Adress</h3>
+    </div>
+    <div class="mb-2">
+        <h3 class="text-lg font-semibold">Nazwa pokoju: @Model.PokojNazwa</h3>
+    </div>
+    <div class="mb-2">
+        <h3 class="text-lg font-semibold">Numer pokoju: @Model.PokojNumer</h3>
+    </div>
+    <div class="mb-2">
+        <h3 class="text-lg font-semibold">Rozmiar pokoju: @Model.PokojRozmiar</h3>
+    </div>
+    <div class="mb-2">
+        <h3 class="text-lg font-semibold">Piętro pokoju: @Model.PokojPietro</h3>
+    </div>
+    <div class="mb-2">
+        <h3 class="text-lg font-semibold">Cena: @Model.Cena</h3>
+    </div>
+    <a class="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700 inline-block mt-4" asp-action="Index">Powrót</a>
 </div>

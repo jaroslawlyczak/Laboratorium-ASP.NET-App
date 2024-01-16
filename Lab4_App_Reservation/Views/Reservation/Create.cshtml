@@ -1,66 +1,92 @@
-﻿@model Reservation
-@{
-    ViewData["Title"] = "Utwórz";
-}
+﻿@using Lab4_App_Reservation.Models.ReservationModels;
+@model Reservation
 
-<h2>Create</h2>
 
-<form asp-action="Create" asp-controller="Reservation" method="post">
-    <div asp-validation-summary="All"></div>
-    <div>
-        <label asp-for="Priority"></label>
-        <div>
-            <span asp-validation-for="Priority" class="text-danger"></span>
-        </div>
-        <select class="form-control" asp-for="Priority" asp-items="@Html.GetEnumSelectList<Priority>()"></select>
+<form class="max-w-md mx-auto bg-white p-6 rounded-md shadow-md" asp-controller="Reservation" asp-action="Create" method="post">
+    <h1 class="text-3xl font-bold mb-4 text-center">Dodaj rezerwację</h1>
+    <a asp-controller="Reservation" asp-action="Index" class="text-blue-500 text-lg hover:underline flex items-center mb-4">
+        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        Powrót
+    </a>
+    <div class="mb-4">
+            <label class="text-lg font-semibold" asp-for="Data"></label>
+            <input class="form-input border rounded-md p-2" asp-for="Data" />
+        <span class="text-red-500 text-xs" asp-validation-for="Data"></span>
     </div>
-    <div>
-        <label asp-for="Date"></label>
-        <div>
-            <span asp-validation-for="Date" class="text-danger"></span>
-        </div>
-        <input asp-for="Date" class="form-control" />
-    </div>
-
-    <div>
-        <label asp-for="City"></label>
-        <div>
-            <span asp-validation-for="City" class="text-danger"></span>
-        </div>
-        <input asp-for="City" class="form-control" />
+    <div class="mb-4">
+            <label class="text-lg font-semibold" asp-for="Miasto"></label>
+            <input class="form-input border rounded-md p-2" asp-for="Miasto" />
+        <span class="text-red-500 text-xs" asp-validation-for="Miasto"></span>
     </div>
 
-    <div>
-        <label asp-for="Address"></label>
-        <div>
-            <span asp-validation-for="Address" class="text-danger"></span>
-        </div>
-        <input asp-for="Address" class="form-control" />
+    <div class="mb-4">
+            <label class="text-lg font-semibold" asp-for="Adress"></label>
+            <input class="form-input border rounded-md p-2" asp-for="Adress" />
+        <span class="text-red-500 text-xs" asp-validation-for="Adress"></span>
     </div>
 
-    <div>
-        <label asp-for="Room"></label>
-        <div>
-            <span asp-validation-for="Room" class="text-danger"></span>
-        </div>
-        <input asp-for="Room" class="form-control" />
+    <div class="mb-4">
+            <label class="text-lg font-semibold" asp-for="PokojNumer"></label>
+            <input class="form-input border rounded-md p-2 border rounded-md p-2" asp-for="PokojNumer" />
+        <span class="text-red-500 text-xs" asp-validation-for="PokojNumer"></span>
     </div>
 
-    <div>
-        <label asp-for="Owner"></label>
-        <div>
-            <span asp-validation-for="Owner" class="text-danger"></span>
-        </div>
-        <input asp-for="Owner" class="form-control" />
+    <div class="mb-4">
+            <label class="text-lg font-semibold" asp-for="PokojNazwa"></label>
+            <input class="form-input border rounded-md p-2" asp-for="PokojNazwa" />
+        <span class="text-red-500 text-xs" asp-validation-for="PokojNazwa"></span>
     </div>
 
-    <div>
-        <label asp-for="Price"></label>
-        <div>
-            <span asp-validation-for="Price" class="text-danger"></span>
-        </div>
-        <input asp-for="Price" class="form-control" />
+    <div class="mb-4">
+            <label class="text-lg font-semibold" asp-for="PokojPietro"></label>
+            <input class="form-input  border rounded-md p-2" asp-for="PokojPietro" />
+        <span class="text-red-500 text-xs" asp-validation-for="PokojPietro"></span>
     </div>
 
-    <button type="submit">Zapisz</button>
+    <div class="mb-4">
+            <label class="text-lg font-semibold" asp-for="PokojRozmiar"></label>
+            <input class="form-input border rounded-md p-2" asp-for="PokojRozmiar" />
+        <span class="text-red-500 text-xs" asp-validation-for="PokojRozmiar"></span>
+    </div>
+
+    <div class="mb-4">
+            <label class="text-lg font-semibold" asp-for="ContactId"></label>
+            <select class="form-select border rounded-md p-2" asp-for="ContactId" asp-items="@Model.ContactList"></select>
+        <a class="text-blue-500 text-sm hover:underline" asp-controller="Contact" asp-action="Create">Utworz Contact</a>
+    </div>
+
+    <div class="mb-4">
+            <label class="text-lg font-semibold" asp-for="Cena"></label>
+            <input class="form-input  border rounded-md p-2" asp-for="Cena" />
+        <span class="text-red-500 text-xs" asp-validation-for="Cena"></span>
+    </div>
+
+    <div class="mb-4">
+        <button class="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-700" type="submit">Utwórz</button>
+    </div>
+
+    <div class="mb-4">
+        <input type="hidden" class="form-input" asp-for="ContactName" id="ContactName" />
+    </div>
 </form>
+
+
+@section scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var contactIdSelect = document.getElementById('ContactId');
+            var contactNameInput = document.getElementById('ContactName');
+
+            contactIdSelect.addEventListener('change', function () {
+                var selectedContactId = this.value;
+
+                var selectedContact = @Html.Raw(Json.Serialize(Model.ContactList))
+                            .find(contact => contact.value == selectedContactId);
+
+                contactNameInput.value = selectedContact.text;
+            });
+        });
+    </script>
+}

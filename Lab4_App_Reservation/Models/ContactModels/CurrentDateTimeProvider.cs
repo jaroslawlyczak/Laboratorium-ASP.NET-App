@@ -1,11 +1,10 @@
-namespace Lab4_App_Reservation.Models
+﻿namespace Lab4_App_Reservation.Models.ContactModels
 {
     public class CurrentDateTimeProvider : IDateTimeProvider
     {
-        public DateTime GetCurrentDateTime()
+        public DateTime Now()
         {
             return DateTime.Now;
         }
     }
-
 }
