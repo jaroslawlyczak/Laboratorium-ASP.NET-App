@@ -13,18 +13,17 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
     public DbSet<OrganizationEntity> Organizations { get; set; }
     public DbSet<ReservationEntity> Reservations { get; set; }
     public DbSet<PokojDetailsEntity> PokojDetails { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    private string DbPath { get; set; }
+    public AppDbContext()
     {
-        string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string dbFilePath = Path.Combine(currentDirectory, "database.db3");
-        SqliteConnectionStringBuilder builder = new SqliteConnectionStringBuilder();
-        builder.DataSource = dbFilePath;
-        string connectionString = builder.ConnectionString;
-        base.OnConfiguring(optionsBuilder);
-        optionsBuilder.UseSqlite(connectionString);
-        optionsBuilder.EnableSensitiveDataLogging();
+        var folder = Environment.SpecialFolder.LocalApplicationData;
+        var path = Environment.GetFolderPath(folder);
+        DbPath = System.IO.Path.Join(path, "reservation.db");
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options) =>
+        options.UseSqlite($"Data Source={DbPath}");
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,11 +38,25 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
             EmailConfirmed = true,
 
         };
+        var regularUser = new IdentityUser()
+        {
+            Id = Guid.NewGuid().ToString(),
+            UserName = "ewa",
+            NormalizedUserName = "EWA",
+            Email = "ewa@wsei.edu.pl",
+            NormalizedEmail = "EWA@WSEI.EDU.PL",
+            EmailConfirmed = true,
+        };
 
-        PasswordHasher<IdentityUser> passwordHasher = new PasswordHasher<IdentityUser>();
-        user.PasswordHash = passwordHasher.HashPassword(user, "1234Abcd$");
+        PasswordHasher<IdentityUser> passwordHasher1 = new PasswordHasher<IdentityUser>();
+        user.PasswordHash = passwordHasher1.HashPassword(user, "1234Abcd$");
         modelBuilder.Entity<IdentityUser>().HasData(user);
 
+        PasswordHasher<IdentityUser> passwordHasher2 = new PasswordHasher<IdentityUser>();
+        regularUser.PasswordHash = passwordHasher2.HashPassword(regularUser, "Ewa123!");
+        modelBuilder.Entity<IdentityUser>().HasData(regularUser);
+
+        
         var adminRole = new IdentityRole()
         {
             Id = Guid.NewGuid().ToString(),
@@ -52,54 +65,79 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
         };
         adminRole.ConcurrencyStamp = adminRole.Id;
 
+        var userRole = new IdentityRole()
+        {
+            Id = Guid.NewGuid().ToString(),
+            Name = "user",
+            NormalizedName = "USER"
+        };
+
         modelBuilder.Entity<IdentityRole>().HasData(adminRole);
+        modelBuilder.Entity<IdentityRole>().HasData(userRole);
+
         modelBuilder.Entity<IdentityUserRole<string>>()
-            .HasData
-            (
-                new IdentityUserRole<string>()
+            .HasData(
+                new IdentityUserRole<string>
                 {
                     RoleId = adminRole.Id,
                     UserId = user.Id,
+                },
+                new IdentityUserRole<string>
+                {
+                    UserId = regularUser.Id,
+                    RoleId = userRole.Id
                 }
             );
+        modelBuilder.Entity<ContactEntity>()
+        .HasOne(e => e.Organization)
+        .WithMany(o => o.Contacts)
+        .HasForeignKey(e => e.OrganizationId);
+
+        modelBuilder.Entity<ReservationEntity>()
+            .HasOne(e => e.ContactEntity)
+            .WithMany(o => o.Reservations)
+            .HasForeignKey(e => e.ContactEntityContactId);
+
+
 
         modelBuilder.Entity<OrganizationEntity>().HasData
-        (
-            new OrganizationEntity() { Id = 101, Name = "WSEI", Description = "Uczelnia wyzsza" },
-            new OrganizationEntity() { Id = 102, Name = "Comarch", Description = "Przedsiębiorstwo IT" }
-        );
+(
+    new OrganizationEntity() { Id = 101, Name = "Tech University", Description = "Higher Education Institution" },
+    new OrganizationEntity() { Id = 102, Name = "Innovatech", Description = "Technology Solutions Company" },
+    new OrganizationEntity() { Id = 103, Name = "SoftServe", Description = "Software Development Company" }
+);
         modelBuilder.Entity<ContactEntity>().HasData
         (
-            new ContactEntity() { ContactId = 1, Name = "Adam", Email = "adam@wsei.edu.pl", Phone = "124124234", Birth = DateTime.Parse("2000-10-10"), Created = DateTime.Parse("2000-10-10"), Priority = Priority.Low, OrganizationId = 101 },
-            new ContactEntity() { ContactId = 2, Name = "John", Email = "john@email.com", Phone = "987654321", Birth = DateTime.Parse("1995-05-15"), Created = DateTime.UtcNow, Priority = Priority.Low, OrganizationId = 101 },
-            new ContactEntity() { ContactId = 3, Name = "Alice", Email = "alice@email.com", Phone = "123456789", Birth = DateTime.Parse("1990-08-20"), Created = DateTime.UtcNow, Priority = Priority.Normal, OrganizationId = 102 },
-            new ContactEntity() { ContactId = 4, Name = "Bob", Email = "bob@email.com", Phone = "555555555", Birth = DateTime.Parse("1985-11-25"), Created = DateTime.UtcNow, Priority = Priority.Urgent, OrganizationId = 102 }
+            new ContactEntity() { ContactId = 1, Name = "Eva", Email = "eva@techuniversity.com", Phone = "555123456", Birth = DateTime.Parse("1988-02-20"), Created = DateTime.Parse("2022-03-15"), Priority = Priority.Normal, OrganizationId = 101 },
+            new ContactEntity() { ContactId = 2, Name = "Mark", Email = "mark@innovatech.com", Phone = "555654321", Birth = DateTime.Parse("1975-08-30"), Created = DateTime.UtcNow, Priority = Priority.Low, OrganizationId = 102 },
+            new ContactEntity() { ContactId = 3, Name = "Julia", Email = "julia@softserve.com", Phone = "555789123", Birth = DateTime.Parse("1992-11-15"), Created = DateTime.UtcNow, Priority = Priority.Urgent, OrganizationId = 103 }
         );
+
         modelBuilder.Entity<OrganizationEntity>()
-            .OwnsOne(o => o.Adress)
+            .OwnsOne(e => e.Adress)
             .HasData
             (
-                new { OrganizationEntityId = 101, City = "Krakow", Street = "św. Filipa 17", PostalCode = "31-150" },
-                new { OrganizationEntityId = 102, City = "Krakow", Street = "Rozwoju 1/4", PostalCode = "36-160" }
+                new { OrganizationEntityId = 101, City = "Liberty City", Street = "Freedom St 47", PostalCode = "10001" },
+                new { OrganizationEntityId = 102, City = "Liberty City", Street = "Innovation Ave 3", PostalCode = "10002" },
+                new { OrganizationEntityId = 103, City = "Liberty City", Street = "Tech Park Rd 21", PostalCode = "10003" }
             );
-
 
         modelBuilder.Entity<ReservationEntity>().HasData(
             new ReservationEntity()
             {
                 ReservationEntityId = 1,
-                Data = DateTime.Parse("2000-10-10"),
-                Cena = (decimal)190.23,
+                Data = DateTime.Parse("2023-05-10"),
+                Cena = (decimal)250.50,
                 ContactEntityContactId = 1,
-                ContactName = "Adam"
+                ContactName = "Eva"
             },
             new ReservationEntity()
             {
                 ReservationEntityId = 2,
-                Data = DateTime.Parse("2012-11-11"),
-                Cena = (decimal)156.99,
-                ContactEntityContactId = 3,
-                ContactName = "Alice"
+                Data = DateTime.Parse("2023-06-15"),
+                Cena = (decimal)300.75,
+                ContactEntityContactId = 2,
+                ContactName = "Mark"
             }
         );
 
@@ -107,26 +145,24 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
             new PokojDetailsEntity()
             {
                 Id = 1,
-                Nazwa = "Room1",
-                Numer = "101",
-                Rozmiar = 20,
-                Pietro = 1,
+                Nazwa = "Deluxe Suite",
+                Numer = "301",
+                Rozmiar = 35,
+                Pietro = 3,
             },
             new PokojDetailsEntity()
             {
                 Id = 2,
-                Nazwa = "Room2",
-                Numer = "102",
-                Rozmiar = 25,
+                Nazwa = "Standard Room",
+                Numer = "202",
+                Rozmiar = 20,
                 Pietro = 2,
             }
         );
 
         modelBuilder.Entity<ReservationEntity>().OwnsOne(r => r.Adress).HasData(
-            new { ReservationEntityId = 1, City = "Krakow", Street = "Mazowiecka 12", PostalCode = "30-015" },
-            new { ReservationEntityId = 2, City = "Krakow", Street = "Czarodziejska 2", PostalCode = "30-322" }
-            );
-
-
+            new { ReservationEntityId = 1, City = "Liberty City", Street = "Central Sq 1", PostalCode = "10004" },
+            new { ReservationEntityId = 2, City = "Liberty City", Street = "Main St 99", PostalCode = "10005" }
+        );
     }
 }

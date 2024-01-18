@@ -11,14 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240116185904_1create")]
+    [Migration("20240117185053_1create")]
     partial class _1create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.14");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.12");
 
             modelBuilder.Entity("Data.Entities.ContactEntity", b =>
                 {
@@ -61,45 +61,34 @@ namespace Data.Migrations
                         new
                         {
                             ContactId = 1,
-                            Birth = new DateTime(2000, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2000, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "adam@wsei.edu.pl",
-                            Name = "Adam",
+                            Birth = new DateTime(1988, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2022, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "eva@techuniversity.com",
+                            Name = "Eva",
                             OrganizationId = 101,
-                            Phone = "124124234",
-                            Priority = 0
+                            Phone = "555123456",
+                            Priority = 1
                         },
                         new
                         {
                             ContactId = 2,
-                            Birth = new DateTime(1995, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2024, 1, 16, 18, 59, 4, 22, DateTimeKind.Utc).AddTicks(7553),
-                            Email = "john@email.com",
-                            Name = "John",
-                            OrganizationId = 101,
-                            Phone = "987654321",
+                            Birth = new DateTime(1975, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2024, 1, 17, 18, 50, 53, 21, DateTimeKind.Utc).AddTicks(8602),
+                            Email = "mark@innovatech.com",
+                            Name = "Mark",
+                            OrganizationId = 102,
+                            Phone = "555654321",
                             Priority = 0
                         },
                         new
                         {
                             ContactId = 3,
-                            Birth = new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2024, 1, 16, 18, 59, 4, 22, DateTimeKind.Utc).AddTicks(7557),
-                            Email = "alice@email.com",
-                            Name = "Alice",
-                            OrganizationId = 102,
-                            Phone = "123456789",
-                            Priority = 1
-                        },
-                        new
-                        {
-                            ContactId = 4,
-                            Birth = new DateTime(1985, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Created = new DateTime(2024, 1, 16, 18, 59, 4, 22, DateTimeKind.Utc).AddTicks(7560),
-                            Email = "bob@email.com",
-                            Name = "Bob",
-                            OrganizationId = 102,
-                            Phone = "555555555",
+                            Birth = new DateTime(1992, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Created = new DateTime(2024, 1, 17, 18, 50, 53, 21, DateTimeKind.Utc).AddTicks(8606),
+                            Email = "julia@softserve.com",
+                            Name = "Julia",
+                            OrganizationId = 103,
+                            Phone = "555789123",
                             Priority = 2
                         });
                 });
@@ -126,14 +115,20 @@ namespace Data.Migrations
                         new
                         {
                             Id = 101,
-                            Description = "Uczelnia wyzsza",
-                            Name = "WSEI"
+                            Description = "Higher Education Institution",
+                            Name = "Tech University"
                         },
                         new
                         {
                             Id = 102,
-                            Description = "Przedsiębiorstwo IT",
-                            Name = "Comarch"
+                            Description = "Technology Solutions Company",
+                            Name = "Innovatech"
+                        },
+                        new
+                        {
+                            Id = 103,
+                            Description = "Software Development Company",
+                            Name = "SoftServe"
                         });
                 });
 
@@ -164,18 +159,18 @@ namespace Data.Migrations
                         new
                         {
                             Id = 1,
-                            Nazwa = "Room1",
-                            Numer = "101",
-                            Pietro = 1,
-                            Rozmiar = 20
+                            Nazwa = "Deluxe Suite",
+                            Numer = "301",
+                            Pietro = 3,
+                            Rozmiar = 35
                         },
                         new
                         {
                             Id = 2,
-                            Nazwa = "Room2",
-                            Numer = "102",
+                            Nazwa = "Standard Room",
+                            Numer = "202",
                             Pietro = 2,
-                            Rozmiar = 25
+                            Rozmiar = 20
                         });
                 });
 
@@ -208,18 +203,18 @@ namespace Data.Migrations
                         new
                         {
                             ReservationEntityId = 1,
-                            Cena = 190.23m,
+                            Cena = 250.5m,
                             ContactEntityContactId = 1,
-                            ContactName = "Adam",
-                            Data = new DateTime(2000, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            ContactName = "Eva",
+                            Data = new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             ReservationEntityId = 2,
-                            Cena = 156.99m,
-                            ContactEntityContactId = 3,
-                            ContactName = "Alice",
-                            Data = new DateTime(2012, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Cena = 300.75m,
+                            ContactEntityContactId = 2,
+                            ContactName = "Mark",
+                            Data = new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -251,10 +246,16 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b073108a-2d96-432c-8ebd-ffbd7e2d83f2",
-                            ConcurrencyStamp = "b073108a-2d96-432c-8ebd-ffbd7e2d83f2",
+                            Id = "e31deeff-21f1-42b6-bfde-7693168c671c",
+                            ConcurrencyStamp = "e31deeff-21f1-42b6-bfde-7693168c671c",
                             Name = "admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "a4f0ad8e-553c-48b3-8542-5ff232d47ee6",
+                            Name = "user",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -347,19 +348,35 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b1df81d0-004f-45eb-9185-72c46b2d491c",
+                            Id = "1dfffe03-ede9-4440-ba5e-7e6a54fcad2f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "789a8573-6a86-47d9-991a-75951e640640",
+                            ConcurrencyStamp = "208dad0d-fa9b-4f2b-aadf-8748ae943b5a",
                             Email = "adam@wsei.edu.pl",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADAM@WSEI.EDU.PL",
                             NormalizedUserName = "ADAM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBAAtIGpDkxKiAzkJxt7HcGCXbFS1Fk+lVULSDKrLhm4JpZXj2VTeg+fEiLCLdkJpA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDGbsu4J4oPUpysA9D5zjFQs7FnudzUfcLJN1nM5gfJsX4iP5ibZCChRK0FhWDq7LA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cbdc0a1f-f764-47f8-9090-76d690f65abb",
+                            SecurityStamp = "ce7edbed-9d4f-4730-b6c6-c57f2f049dd8",
                             TwoFactorEnabled = false,
                             UserName = "adam"
+                        },
+                        new
+                        {
+                            Id = "f2dbc8ee-f43a-46c9-8c1c-5069c98c25ac",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3fc568d4-c623-4ab9-a8db-e4ce544d59b5",
+                            Email = "ewa@wsei.edu.pl",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "EWA@WSEI.EDU.PL",
+                            NormalizedUserName = "EWA",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKna6MbsJ+dHG0yT8UrP8am8InN3Hjg5YuQyd221DxslCfP1tav9SWInI4yhX4VQyA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "e6a47eb7-b445-483e-9797-649eb1588743",
+                            TwoFactorEnabled = false,
+                            UserName = "ewa"
                         });
                 });
 
@@ -425,8 +442,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "b1df81d0-004f-45eb-9185-72c46b2d491c",
-                            RoleId = "b073108a-2d96-432c-8ebd-ffbd7e2d83f2"
+                            UserId = "1dfffe03-ede9-4440-ba5e-7e6a54fcad2f",
+                            RoleId = "e31deeff-21f1-42b6-bfde-7693168c671c"
+                        },
+                        new
+                        {
+                            UserId = "f2dbc8ee-f43a-46c9-8c1c-5069c98c25ac",
+                            RoleId = "a4f0ad8e-553c-48b3-8542-5ff232d47ee6"
                         });
                 });
 
@@ -488,16 +510,23 @@ namespace Data.Migrations
                                 new
                                 {
                                     OrganizationEntityId = 101,
-                                    City = "Krakow",
-                                    PostalCode = "31-150",
-                                    Street = "św. Filipa 17"
+                                    City = "Liberty City",
+                                    PostalCode = "10001",
+                                    Street = "Freedom St 47"
                                 },
                                 new
                                 {
                                     OrganizationEntityId = 102,
-                                    City = "Krakow",
-                                    PostalCode = "36-160",
-                                    Street = "Rozwoju 1/4"
+                                    City = "Liberty City",
+                                    PostalCode = "10002",
+                                    Street = "Innovation Ave 3"
+                                },
+                                new
+                                {
+                                    OrganizationEntityId = 103,
+                                    City = "Liberty City",
+                                    PostalCode = "10003",
+                                    Street = "Tech Park Rd 21"
                                 });
                         });
 
@@ -551,16 +580,16 @@ namespace Data.Migrations
                                 new
                                 {
                                     ReservationEntityId = 1,
-                                    City = "Krakow",
-                                    PostalCode = "30-015",
-                                    Street = "Mazowiecka 12"
+                                    City = "Liberty City",
+                                    PostalCode = "10004",
+                                    Street = "Central Sq 1"
                                 },
                                 new
                                 {
                                     ReservationEntityId = 2,
-                                    City = "Krakow",
-                                    PostalCode = "30-322",
-                                    Street = "Czarodziejska 2"
+                                    City = "Liberty City",
+                                    PostalCode = "10005",
+                                    Street = "Main St 99"
                                 });
                         });
 

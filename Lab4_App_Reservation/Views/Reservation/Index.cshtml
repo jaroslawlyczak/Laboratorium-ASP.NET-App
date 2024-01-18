@@ -3,6 +3,7 @@
 
 @model List<Reservation>
 
+
 <h1 class="text-2xl font-bold mb-4">Lista rezerwacji</h1>
 <a class="bg-blue-500 text-white px-4 py-2 rounded inline-block mb-4 hover:bg-blue-700" asp-controller="Reservation" asp-action="Create">Utwórz rezerwacje</a>
 <a class="bg-blue-500 text-white px-4 py-2 rounded inline-block mb-4 hover:bg-blue-700" asp-controller="Reservation" asp-action="PagedIndex">Stronicowana witryna</a>
@@ -34,8 +35,13 @@
                         <span class="sort-arrow @(ViewBag.CurrentSort == "Data_asc" ? "up" : (ViewBag.CurrentSort == "Data_desc" ? "down" : ""))"></span>
                     </a>
                 </th>
+
                 <th class="py-2 px-4 border-b">
-                    Akcje
+                    <a href="@Url.Action("Index", new { sortOrder = ViewBag.CurrentSort == "PokojNazwa_asc" ? "PokojNazwa_desc" : "PokojNazwa_asc" })" class="underline text-blue-500 hover:text-blue-700">
+
+                        <span>@Html.DisplayNameFor(i => Model[0].PokojNazwa)</span>
+                        <span class="sort-arrow @(ViewBag.CurrentSort == "PokojNazwa_asc" ? "up" : (ViewBag.CurrentSort == "PokojNazwa_desc" ? "down" : ""))"></span>
+                    </a>
                 </th>
             </tr>
         </thead>
@@ -54,6 +60,10 @@
                     <td class="py-2 px-4 border-b">
                         @item.Data.ToShortDateString()
                     </td>
+                    <td class="py-2 px-4 border-b">
+                        @item.PokojNazwa
+                    </td>
+                    
                     <td class="py-2 px-4 border-b">
                         <a class="bg-blue-500 text-white px-4 py-2 rounded mr-2 hover:bg-blue-700" asp-controller="Reservation" asp-action="Update" asp-route-id="@item.Id">Edytuj</a>
                         <a class="bg-green-500 text-white px-4 py-2 rounded mr-2 hover:bg-green-700" asp-controller="Reservation" asp-action="Details" asp-route-id="@item.Id">Szczególy</a>

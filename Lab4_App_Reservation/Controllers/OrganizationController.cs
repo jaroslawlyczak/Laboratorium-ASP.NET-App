@@ -19,7 +19,7 @@ namespace Lab4_App_Reservation.Controllers
             _context = context;
         }
 
-        // GET: Organization
+   
         public async Task<IActionResult> Index()
         {
               return _context.Organizations != null ? 
@@ -27,7 +27,7 @@ namespace Lab4_App_Reservation.Controllers
                           Problem("Entity set 'AppDbContext.Organizations'  is null.");
         }
 
-        // GET: Organization/Details/5
+      
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Organizations == null)
@@ -45,15 +45,14 @@ namespace Lab4_App_Reservation.Controllers
             return View(organizationEntity);
         }
 
-        // GET: Organization/Create
+     
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Organization/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+ 
         [HttpPost]
         public async Task<IActionResult> Create([Bind("Id,Name,Description")] OrganizationEntity organizationEntity)
         {
@@ -62,7 +61,7 @@ namespace Lab4_App_Reservation.Controllers
             return RedirectToAction("Create", "Contact");
         }
 
-        // GET: Organization/Edit/5
+  
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Organizations == null)
@@ -78,9 +77,7 @@ namespace Lab4_App_Reservation.Controllers
             return View(organizationEntity);
         }
 
-        // POST: Organization/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description")] OrganizationEntity organizationEntity)
         {
@@ -110,7 +107,6 @@ namespace Lab4_App_Reservation.Controllers
 
         }
 
-        // GET: Organization/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Organizations == null)
@@ -128,7 +124,7 @@ namespace Lab4_App_Reservation.Controllers
             return View(organizationEntity);
         }
 
-        // POST: Organization/Delete/5
+       
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

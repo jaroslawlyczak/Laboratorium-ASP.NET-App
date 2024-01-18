@@ -1,8 +1,20 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "RESERVATION - HOME";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Reservation</h1>
-    <p></p>
-</div>
+<table class="table table-bordered">
+    <tbody>
+        <tr>
+            <th scope="row" class="text-right align-middle">Last visit:  </th>
+            <td class="text-left align-middle">  @ViewData["Visit"]</td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-right align-middle">Number of visits:  </th>
+            <td class="text-left align-middle">  @ViewData["Count"]</td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-right align-middle">Date and Time Now:  </th>
+            <td class="text-left align-middle">  @DateTime.Now</td>
+        </tr>
+    </tbody>
+</table>

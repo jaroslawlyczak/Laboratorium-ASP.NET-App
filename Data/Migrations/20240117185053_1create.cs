@@ -248,36 +248,48 @@ namespace Data.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b073108a-2d96-432c-8ebd-ffbd7e2d83f2", "b073108a-2d96-432c-8ebd-ffbd7e2d83f2", "admin", "ADMIN" });
+                values: new object[,]
+                {
+                    { "a4f0ad8e-553c-48b3-8542-5ff232d47ee6", null, "user", "USER" },
+                    { "e31deeff-21f1-42b6-bfde-7693168c671c", "e31deeff-21f1-42b6-bfde-7693168c671c", "admin", "ADMIN" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b1df81d0-004f-45eb-9185-72c46b2d491c", 0, "789a8573-6a86-47d9-991a-75951e640640", "adam@wsei.edu.pl", true, false, null, "ADAM@WSEI.EDU.PL", "ADAM", "AQAAAAIAAYagAAAAEBAAtIGpDkxKiAzkJxt7HcGCXbFS1Fk+lVULSDKrLhm4JpZXj2VTeg+fEiLCLdkJpA==", null, false, "cbdc0a1f-f764-47f8-9090-76d690f65abb", false, "adam" });
+                values: new object[,]
+                {
+                    { "1dfffe03-ede9-4440-ba5e-7e6a54fcad2f", 0, "208dad0d-fa9b-4f2b-aadf-8748ae943b5a", "adam@wsei.edu.pl", true, false, null, "ADAM@WSEI.EDU.PL", "ADAM", "AQAAAAIAAYagAAAAEDGbsu4J4oPUpysA9D5zjFQs7FnudzUfcLJN1nM5gfJsX4iP5ibZCChRK0FhWDq7LA==", null, false, "ce7edbed-9d4f-4730-b6c6-c57f2f049dd8", false, "adam" },
+                    { "f2dbc8ee-f43a-46c9-8c1c-5069c98c25ac", 0, "3fc568d4-c623-4ab9-a8db-e4ce544d59b5", "ewa@wsei.edu.pl", true, false, null, "EWA@WSEI.EDU.PL", "EWA", "AQAAAAIAAYagAAAAEKna6MbsJ+dHG0yT8UrP8am8InN3Hjg5YuQyd221DxslCfP1tav9SWInI4yhX4VQyA==", null, false, "e6a47eb7-b445-483e-9797-649eb1588743", false, "ewa" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Organizations",
                 columns: new[] { "Id", "Description", "Name", "Adress_City", "Adress_PostalCode", "Adress_Street" },
                 values: new object[,]
                 {
-                    { 101, "Uczelnia wyzsza", "WSEI", "Krakow", "31-150", "św. Filipa 17" },
-                    { 102, "Przedsiębiorstwo IT", "Comarch", "Krakow", "36-160", "Rozwoju 1/4" }
+                    { 101, "Higher Education Institution", "Tech University", "Liberty City", "10001", "Freedom St 47" },
+                    { 102, "Technology Solutions Company", "Innovatech", "Liberty City", "10002", "Innovation Ave 3" },
+                    { 103, "Software Development Company", "SoftServe", "Liberty City", "10003", "Tech Park Rd 21" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "b073108a-2d96-432c-8ebd-ffbd7e2d83f2", "b1df81d0-004f-45eb-9185-72c46b2d491c" });
+                values: new object[,]
+                {
+                    { "e31deeff-21f1-42b6-bfde-7693168c671c", "1dfffe03-ede9-4440-ba5e-7e6a54fcad2f" },
+                    { "a4f0ad8e-553c-48b3-8542-5ff232d47ee6", "f2dbc8ee-f43a-46c9-8c1c-5069c98c25ac" }
+                });
 
             migrationBuilder.InsertData(
                 table: "contacts",
                 columns: new[] { "ContactId", "Birth", "Created", "Email", "name", "OrganizationId", "Phone", "Priority" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2000, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2000, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "adam@wsei.edu.pl", "Adam", 101, "124124234", 0 },
-                    { 2, new DateTime(1995, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 16, 18, 59, 4, 22, DateTimeKind.Utc).AddTicks(7553), "john@email.com", "John", 101, "987654321", 0 },
-                    { 3, new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 16, 18, 59, 4, 22, DateTimeKind.Utc).AddTicks(7557), "alice@email.com", "Alice", 102, "123456789", 1 },
-                    { 4, new DateTime(1985, 11, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 16, 18, 59, 4, 22, DateTimeKind.Utc).AddTicks(7560), "bob@email.com", "Bob", 102, "555555555", 2 }
+                    { 1, new DateTime(1988, 2, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2022, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "eva@techuniversity.com", "Eva", 101, "555123456", 1 },
+                    { 2, new DateTime(1975, 8, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 17, 18, 50, 53, 21, DateTimeKind.Utc).AddTicks(8602), "mark@innovatech.com", "Mark", 102, "555654321", 0 },
+                    { 3, new DateTime(1992, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2024, 1, 17, 18, 50, 53, 21, DateTimeKind.Utc).AddTicks(8606), "julia@softserve.com", "Julia", 103, "555789123", 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -285,8 +297,8 @@ namespace Data.Migrations
                 columns: new[] { "ReservationEntityId", "Cena", "ContactEntityContactId", "ContactName", "Data", "Adress_City", "Adress_PostalCode", "Adress_Street" },
                 values: new object[,]
                 {
-                    { 1, 190.23m, 1, "Adam", new DateTime(2000, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Krakow", "30-015", "Mazowiecka 12" },
-                    { 2, 156.99m, 3, "Alice", new DateTime(2012, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Krakow", "30-322", "Czarodziejska 2" }
+                    { 1, 250.5m, 1, "Eva", new DateTime(2023, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Liberty City", "10004", "Central Sq 1" },
+                    { 2, 300.75m, 2, "Mark", new DateTime(2023, 6, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "Liberty City", "10005", "Main St 99" }
                 });
 
             migrationBuilder.InsertData(
@@ -294,8 +306,8 @@ namespace Data.Migrations
                 columns: new[] { "Id", "Nazwa", "Numer", "Pietro", "Rozmiar" },
                 values: new object[,]
                 {
-                    { 1, "Room1", "101", 1, 20 },
-                    { 2, "Room2", "102", 2, 25 }
+                    { 1, "Deluxe Suite", "301", 3, 35 },
+                    { 2, "Standard Room", "202", 2, 20 }
                 });
 
             migrationBuilder.CreateIndex(
