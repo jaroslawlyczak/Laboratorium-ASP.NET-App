@@ -101,18 +101,17 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
 
 
         modelBuilder.Entity<OrganizationEntity>().HasData
-(
-    new OrganizationEntity() { Id = 101, Name = "Tech University", Description = "Higher Education Institution" },
-    new OrganizationEntity() { Id = 102, Name = "Innovatech", Description = "Technology Solutions Company" },
-    new OrganizationEntity() { Id = 103, Name = "SoftServe", Description = "Software Development Company" }
-);
+        (
+            new OrganizationEntity() { Id = 101, Name = "Tech University", Description = "Higher Education Institution" },
+            new OrganizationEntity() { Id = 102, Name = "Innovatech", Description = "Technology Solutions Company" },
+            new OrganizationEntity() { Id = 103, Name = "SoftServe", Description = "Software Development Company" }
+        );
         modelBuilder.Entity<ContactEntity>().HasData
         (
             new ContactEntity() { ContactId = 1, Name = "Eva", Email = "eva@techuniversity.com", Phone = "555123456", Birth = DateTime.Parse("1988-02-20"), Created = DateTime.Parse("2022-03-15"), Priority = Priority.Normal, OrganizationId = 101 },
             new ContactEntity() { ContactId = 2, Name = "Mark", Email = "mark@innovatech.com", Phone = "555654321", Birth = DateTime.Parse("1975-08-30"), Created = DateTime.UtcNow, Priority = Priority.Low, OrganizationId = 102 },
             new ContactEntity() { ContactId = 3, Name = "Julia", Email = "julia@softserve.com", Phone = "555789123", Birth = DateTime.Parse("1992-11-15"), Created = DateTime.UtcNow, Priority = Priority.Urgent, OrganizationId = 103 }
         );
-
         modelBuilder.Entity<OrganizationEntity>()
             .OwnsOne(e => e.Adress)
             .HasData
@@ -121,7 +120,6 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
                 new { OrganizationEntityId = 102, City = "Liberty City", Street = "Innovation Ave 3", PostalCode = "10002" },
                 new { OrganizationEntityId = 103, City = "Liberty City", Street = "Tech Park Rd 21", PostalCode = "10003" }
             );
-
         modelBuilder.Entity<ReservationEntity>().HasData(
             new ReservationEntity()
             {
@@ -139,7 +137,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
                 ContactEntityContactId = 2,
                 ContactName = "Mark"
             }
-        );
+            );
 
         modelBuilder.Entity<PokojDetailsEntity>().HasData(
             new PokojDetailsEntity()
@@ -158,7 +156,7 @@ public class AppDbContext : IdentityDbContext<IdentityUser>
                 Rozmiar = 20,
                 Pietro = 2,
             }
-        );
+            );
 
         modelBuilder.Entity<ReservationEntity>().OwnsOne(r => r.Adress).HasData(
             new { ReservationEntityId = 1, City = "Liberty City", Street = "Central Sq 1", PostalCode = "10004" },
