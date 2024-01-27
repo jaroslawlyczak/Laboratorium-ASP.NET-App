@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lab4_App_Reservation.Controllers;
 
+
 [Route("api/organizations")]
 [ApiController]
 public class OrganizationApiController : ControllerBase
@@ -39,3 +40,4 @@ public class OrganizationApiController : ControllerBase
         }
     }
 }
+

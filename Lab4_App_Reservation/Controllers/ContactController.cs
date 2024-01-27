@@ -121,18 +121,19 @@ namespace Lab4_App_Reservation.Controllers
         [HttpGet]
         public IActionResult CreateApi()
         {
+
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateApi(Contact model)
+        public IActionResult CreateApi(Contact model)
         {
             if (ModelState.IsValid)
             {
-                await _contactService.AddAsync(model);
+                _contactService.Add(model);
                 return RedirectToAction("Index");
             }
-            return View();
+            return View(model);
         }
     }
 }

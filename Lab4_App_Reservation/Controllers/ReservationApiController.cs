@@ -5,11 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lab4_App_Reservation.Controllers;
 
+
 [Route("api/reservations")]
 [ApiController]
 public class ReservationApiController : ControllerBase
 {
-    private readonly IReservationService _reservationService; 
+    private readonly IReservationService _reservationService;
 
     public ReservationApiController(IReservationService reservationService)
     {
